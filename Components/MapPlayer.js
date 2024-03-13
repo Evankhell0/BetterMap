@@ -318,12 +318,21 @@ function getPlayerSecrets(uuid, cacheMs, callback) {
         return;
     }
 
-    fetch(`https://api.tenios.dev/secrets/${uuid}`).text((secretsNum) => {
-        let secrets = parseInt(secretsNum);
+    fetch(`https://api.hypixel.net/player?key=${getKeyFromConfig()}&uuid=${uuid}`).json((data) => {
+        let secrets = data.player.achievements.skyblock_treasure_hunter;
         secretsData.set(uuid, [Date.now(), secrets]);
 
         callback(secretsData.get(uuid)[1]);
     });
+}
+
+function getKeyFromConfig() {
+    if(!FileLib.exists("BetterMap", "Data/config.json")) {
+      return "";
+    }
+    const data = FileLib.read("BetterMap", "Data/config.json");
+    const config = JSON.parse(data);
+    return config["key"];
 }
 
 const markerSelf = new Image("markerSelf.png", "https://i.imgur.com/mwpjgRz.png");
