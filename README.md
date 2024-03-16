@@ -1,3 +1,9 @@
+# Use your own API Key
+- generate key at https://developer.hypixel.net/
+- run `/bkey apikey` or `/simkey apikey` to sync it across all mods with auto-detection (requires BloomCore)
+
+Development API Keys automatically expire after 3 days.
+
 # BetterMap
 Bettermap is a highly advanced dungeon map that attempts to show you the most information that it can find about the dungeon, without the map being a cheat.
 
