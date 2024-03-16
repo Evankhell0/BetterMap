@@ -34,6 +34,26 @@ CurrentSettings.settingsManager = settingsManager
 
 require("./Extra/LeapGui/leapGui.js")
 
+register("chat", (apikey) => {
+    setAPIKey(apikey)
+}).setChatCriteria("Your new API key is ${apikey}")
+
+register("command", (apikey) => {
+    if (!apikey) {
+        ChatLib.chat(MESSAGE_PREFIX + 'Missing argument. Usage: §c/bkey [apikey]')
+        return;
+    }
+    setAPIKey(apikey)
+}).setName("bkey", true)
+
+function setAPIKey(apikey) {
+    const config = {
+        key: apikey
+    }
+    FileLib.write("BetterMap", "/Data/config.json", JSON.stringify(config));
+    ChatLib.chat(MESSAGE_PREFIX + "Your API Key has been set");
+}
+
 register("step", () => {
     if (DataLoader.isInDungeon && DataLoader.dungeonFloor || currentDungeonMap?.getCurrentRoomId() === "30,225") {
         if (!currentDungeonMap) { // Entered dungeon, create map data
